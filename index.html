@@ -8,6 +8,20 @@
 <body>
     <script>
     
+    function getComputerChoice(){
+        let choice=Math.random();
+        if(choice==0){
+        return "rock";
+        }
+        else if(choice>=0.5)
+        {
+            return "paper";
+        }
+        else{
+            return "scissors";
+        }
+    }
+    console.log(getComputerChoice());
     </script>
 </body>
 </html>
