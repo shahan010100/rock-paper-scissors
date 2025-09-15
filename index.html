@@ -11,13 +11,16 @@
     function getComputerChoice(){
         let choice=Math.random();
         if(choice==0){
+            console.log("rock");
         return "rock";
         }
         else if(choice>=0.5)
         {
+            console.log("paper");
             return "paper";
         }
         else{
+            console.log("scissors");
             return "scissors";
         }
     }
@@ -27,6 +30,46 @@
     }
     let humanScore=0;
     let computerScore=0;
+    function playRound(humanChoice, computerChoice)
+    {
+        
+        if(humanChoice.toLowerCase()===computerChoice)
+        return "its a draw.";
+        else if(humanChoice.toLowerCase()=="rock" && computerChoice=="scissors")
+        {
+        humanScore++;
+        return "rock beats scissors";
+        }
+        else if(humanChoice.toLowerCase()=="scissors" && computerChoice=="paper")
+        {
+            humanScore++;
+            return "scissors cuts paper!";
+        }
+        else if(humanChoice.toLowerCase()=="paper" && computerChoice=="rock")
+        {
+            humanScore++;
+            return "paper covers rock!";
+        }
+        else{
+            computerScore++;
+            return "You are beaten!";
+        }
+    }
+    function playGame(){
+        console.log(playRound(getHumanChoice(),getComputerChoice()));
+        console.log(playRound(getHumanChoice(),getComputerChoice()));
+        console.log(playRound(getHumanChoice(),getComputerChoice()));
+        console.log(playRound(getHumanChoice(),getComputerChoice()));
+        console.log(playRound(getHumanChoice(),getComputerChoice()));
+    }
+    playGame();
+    if(humanScore>computerScore)
+    {
+        console.log(`you win. your score is ${humanScore}and computer score is ${computerScore}`)
+    }
+    else{
+         console.log(`you lost. your score is ${humanScore} and computer score is ${computerScore}`)
+    }
     </script>
 </body>
 </html>
