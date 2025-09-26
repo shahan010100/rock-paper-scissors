@@ -10,11 +10,11 @@
     
     function getComputerChoice(){
         let choice=Math.random();
-        if(choice==0){
+        if(choice>=0 && choice<0.33){
             console.log("rock");
         return "rock";
         }
-        else if(choice>=0.5)
+        else if(choice>=0.33 && choice<0.66)
         {
             console.log("paper");
             return "paper";
@@ -25,51 +25,77 @@
         }
     }
     
-    function getHumanChoice(){
-       return prompt("Enter your choice");
-    }
+    
     let humanScore=0;
     let computerScore=0;
-    function playRound(humanChoice, computerChoice)
+    function playRound(e)
     {
-        
-        if(humanChoice.toLowerCase()===computerChoice)
-        return "its a draw.";
-        else if(humanChoice.toLowerCase()=="rock" && computerChoice=="scissors")
+        let humanChoice=e.target.textContent.toLowerCase();
+        let computerChoice=getComputerChoice();
+        let text=document.createElement('div');
+        if(computerChoice===humanChoice)
         {
-        humanScore++;
-        return "rock beats scissors";
+                text.textContent= `your choice ${humanChoice} and computerchoice ${computerChoice}, so its a draw!`;
+                div3.replaceChildren();
+                div3.appendChild(text);
         }
-        else if(humanChoice.toLowerCase()=="scissors" && computerChoice=="paper")
+        else if((humanChoice==='rock' && computerChoice==='paper') || (humanChoice==='scissors' && computerChoice==='rock') || (humanChoice==='paper' && computerChoice==='scissors'))
         {
-            humanScore++;
-            return "scissors cuts paper!";
-        }
-        else if(humanChoice.toLowerCase()=="paper" && computerChoice=="rock")
-        {
-            humanScore++;
-            return "paper covers rock!";
+            computerScore++;
+            text.textContent= `your choice ${humanChoice} and computerchoice ${computerChoice}, so computer beats you!`;
+            div3.replaceChildren();
+                div3.appendChild(text);
         }
         else{
-            computerScore++;
-            return "You are beaten!";
+            humanScore++;
+            text.textContent= `your choice ${humanChoice} and computerchoice ${computerChoice}, u win!`;
+            div3.replaceChildren();
+                div3.appendChild(text);
+                
         }
-    }
-    function playGame(){
-        console.log(playRound(getHumanChoice(),getComputerChoice()));
-        console.log(playRound(getHumanChoice(),getComputerChoice()));
-        console.log(playRound(getHumanChoice(),getComputerChoice()));
-        console.log(playRound(getHumanChoice(),getComputerChoice()));
-        console.log(playRound(getHumanChoice(),getComputerChoice()));
-    }
-    playGame();
-    if(humanScore>computerScore)
+        div2.textContent=`Your Score: ${humanScore} and Computer Score: ${computerScore}`;
+        if(computerScore==5 || humanScore==5)
     {
-        console.log(`you win. your score is ${humanScore}and computer score is ${computerScore}`)
+        div3.replaceChildren();
+        if(computerScore==5)
+    {
+        div3.textContent="You Lost, Computer Wins!";
+        computerScore=0;
+        humanScore=0;
+
     }
     else{
-         console.log(`you lost. your score is ${humanScore} and computer score is ${computerScore}`)
+        div3.textContent="You beat computer, yay! You are so intelligent!";
+          computerScore=0;
+        humanScore=0;
     }
+    }
+    
+    }
+    
+  
+    
+    const rock=document.createElement('button');
+    const paper=document.createElement('button');
+    const scissors=document.createElement('button');
+    rock.textContent= "ROCK";
+    paper.textContent= "PAPER";
+    scissors.textContent= "SCISSORS";
+    rock.addEventListener("click", playRound);
+    paper.addEventListener("click", playRound);
+    scissors.addEventListener("click", playRound);
+    const div1=document.createElement('div');
+    div1.appendChild(rock);
+    div1.appendChild(paper);
+    div1.appendChild(scissors);
+    div2=document.createElement('div');
+    div2.textContent=`Your Score: ${humanScore} and Computer Score: ${computerScore}`;
+    div3=document.createElement('div');
+    const body=document.querySelector('body');
+    body.appendChild(div1);
+    body.appendChild(div2);
+    body.appendChild(div3);
+
     </script>
 </body>
 </html>
